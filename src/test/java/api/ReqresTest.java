@@ -17,6 +17,8 @@ public class ReqresTest {
     private static final String URL = "https://reqres.in/";
 
     @Test
+    @Story("Regression")
+    @Story("Smoke")
     public void checkAvatarAndIdTest() {
         List<UserData> users = given()
                 .when()
@@ -37,6 +39,7 @@ public class ReqresTest {
 
     @Test
     @Story("Smoke")
+    @Story("Regression")
     public void checkAvatarAndIdUsingSpecificationTest() {
         Specification.installSpecification(Specification.requestSpecification(URL), Specification.resSpec(200));
 
@@ -55,6 +58,7 @@ public class ReqresTest {
     }
 
     @Test
+    @Story("Regression")
     public void successRegistrationTest() {
         Specification.installSpecification(Specification.requestSpecification(URL), Specification.resSpec(200));
 
@@ -75,6 +79,7 @@ public class ReqresTest {
     }
 
     @Test
+    @Story("Regression")
     public void unSuccessRegTest() {
         Specification.installSpecification(Specification.requestSpecification(URL), Specification.resSpec(400));
         Register register = new Register("eve.holt@reqres.in", "");
@@ -87,6 +92,7 @@ public class ReqresTest {
     }
 
     @Test
+    @Story("Regression")
     public void sortedYearsTest() {
         Specification.installSpecification(Specification.requestSpecification(URL), Specification.resSpec(200));
         List<ColorsData> colors = given()
@@ -101,6 +107,7 @@ public class ReqresTest {
     }
 
     @Test
+    @Story("Regression")
     public void deleteUsertest() {
         Specification.installSpecification(Specification.requestSpecification(URL), Specification.resSpec(204));
         given()
@@ -110,6 +117,7 @@ public class ReqresTest {
     }
 
     @Test
+    @Story("Regression")
     public void timeTest() {
         Specification.installSpecification(Specification.requestSpecification(URL), Specification.resSpec(200));
 
