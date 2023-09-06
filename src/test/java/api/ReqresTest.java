@@ -80,7 +80,7 @@ public class ReqresTest {
 
     @Test
     @Story("Regression")
-    @Story("Run_first_")
+    @Story("Run_first")
     public void unSuccessRegTest() {
         Specification.installSpecification(Specification.requestSpecification(URL), Specification.resSpec(400));
         Register register = new Register("eve.holt@reqres.in", "");
