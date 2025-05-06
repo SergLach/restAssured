@@ -12,6 +12,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11' # Вказати версію JDK, яку використовуєш
+          distribution: 'adoptopenjdk' # Вибір дистрибутива JDK, наприклад, AdoptOpenJDK
 
       # Встановлення залежностей через Maven
       - name: Install dependencies
