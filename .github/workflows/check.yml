@@ -6,7 +6,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install deps
-        run: npm ci
+
+      # Встановлення Java
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11' # Вказати версію JDK, яку використовуєш
+
+      # Встановлення залежностей через Maven
+      - name: Install dependencies
+        run: mvn install -DskipTests
+
+      # Запуск аналізу коду за допомогою Checkstyle (або іншого інструменту)
       - name: Lint
-        run: npm run lint
+        run: mvn checkstyle:check # Для аналізу коду через Checkstyle
