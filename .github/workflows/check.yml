@@ -1,23 +1,43 @@
-name: Check
-on: push
+name: Build and Test Maven Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  lint:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Встановлення Java
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '11' # Вказати версію JDK, яку використовуєш
-          distribution: 'adoptopenjdk' # Вибір дистрибутива JDK, наприклад, AdoptOpenJDK
+          java-version: '11'
+          distribution: 'adoptopenjdk'
 
-      # Встановлення залежностей через Maven
-      - name: Install dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
+
+      - name: Install Dependencies
         run: mvn install -DskipTests
 
-      # Запуск аналізу коду за допомогою Checkstyle (або іншого інструменту)
-      - name: Lint
-        run: mvn checkstyle:check # Для аналізу коду через Checkstyle
+      - name: Run Tests
+        run: mvn test
+
+      - name: Generate Allure Report
+        run: |
+          mvn allure:report
+          mvn allure:serve
+        if: always() # Ensure this runs even if tests fail
